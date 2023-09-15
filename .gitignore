@@ -1,0 +1,16 @@
+# ignore TF files
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+.terraform/**
+*.http
+# ignore local/temp files
+temp/**
+crash.log
+
+# ignore local binary
+solace-terraform-provider
+
+# ignore testfile
+testing.tfvars
