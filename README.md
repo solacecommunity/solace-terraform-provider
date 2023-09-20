@@ -24,27 +24,25 @@ To install the provider locally, you can either clone this repo and run the Make
 ```
 make build
 ```
-followed by 
+followed by deploying the binary into a specific directy which depends on your local operating system.
+For Mac OS and Linux (and other Unix-like systems) it is usually
 ```
-make deploy-local
-``` 
-which will create the needed directories in your home dir and copy the builded go binary in 
-the needed places. Afterwards a terraform init will make sure everything is set to go.
-```bash
-mkdir -p ~/.terraform.d/plugins/localhost/local/solace/1.0.9/linux_amd64
-cp terraform-provider-solace ~/.terraform.d/plugins/localhost/local/solace/1.0.9/linux_amd64
-rm -rf .terraform/providers
-rm -f .terraform.lock.hcl
-terraform init
+$HOME/.terraform.d/plugins
 ```
-
-You can refer the provider in your terraform script like so:
+Followed by the directory layout `HOSTNAME/NAMESPACE/TYPE/VERSION/TARGET`
+A full directory path for the Solace provider could look like
+`$HOME/.terraform.d/plugins/localhost/local/solace/1.0.0/linux_amd64`
+in which you can paste your binary from the build operation.
+It might be needed that you rename your binary while moving it into the directory path to follow terraform conventions.
+The complete path (including the binary) would look like this.
+`$HOME/.terraform.d/plugins/localhost/local/solace/1.0.0/linux_amd64/terraform-provider-solace_v1.0.0`
+Afterwards you can refer the provider in your terraform script like so:
 ```terraform
 terraform {
   required_providers {
     solace = {
       source  = "localhost/local/solace"
-      version = "~> 1.0.0"
+      version = "1.0.0"
     }
   }
 }
@@ -56,7 +54,7 @@ and fill it with the following content:
 ```terraform
 provider_installation {
   filesystem_mirror {
-    path    = "<your home path>/.terraform.d/providers/"
+    path    = "$HOME/.terraform.d/plugins/"
     include = ["localhost/*/*"]
   }
   direct {
@@ -67,7 +65,7 @@ provider_installation {
 This will tell Terraform that you want every provider which starts with localhost to be searched for on the local filesystem (filesystem_mirror) while all other providers will be searched with the direct path (meaning the official terraform registry).
 
 ## Configuration
-The provider supports a set of configuation values. There are 3 parameters that must be set, that is `host`, `admin_user` and `admin_password`. It is recommended to keep those values externally and use variables for that. Have a look at the [`main.tf`](./main.tf) file as an example.
+The provider supports a set of configuation values. There are 3 parameters that must be set, that is `host`, `admin_user` and `admin_password`. It is recommended to keep those values externally and use variables for that.
 
 ```terraform
 provider "solace" {
