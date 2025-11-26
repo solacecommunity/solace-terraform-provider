@@ -2,21 +2,21 @@
 
 # Solace Terraform Provider
 
-**:alert: This provider is Work-in-progress and NOT feature complete! 
-Stay tuned for updates or feel free to contribute!**
+**This repo contains a terraform provider for Solace Event Brokers (with a focus on self-managed software brokers). We're always improving it, but if there are features you want please feel free to open an enhancement request, or even better a PR!**
 
 ## Disclaimer
-This provider aims to support the creators so far to manage Solace Broker instances for internal use. 
+This provider aims to support the creators so far to manage Solace Broker instances for company internal use. 
 Therefore not all properties of a managed resource are exposed by the provider. That is to keep the 
-management as simple as possible and hide unused features unless they become relevant.
+management as simple as possible and hide unused features unless they become relevant. 
 
 That also means, that some default values set by the provider do not match with the default values 
 defined by the Solace Broker. Instead, this provider overwrites those values which are supposed to 
-work best for most requirements. See the respective documentation of the resources for informations 
-what has been changed. 
+work best for most production requirements. See the respective documentation of the resources for informations 
+what has been changed. You can still re-overwrite these values in the actual terraform configuration as you prefer. 
 
-The code of this provider is heavily inspired by the work of another provider - lots of gratitude 
-goes to https://github.com/koverton/terraform-provider-solace
+This provider is independend from the official Solace Terraform Provider: https://github.com/SolaceProducts/terraform-provider-solacebroker/blob/main/README.md
+It`s suggested to use the official Terraform Provider for all general requirements (e.g. Solace Cloud, Appliance or managing assets within a software broker). 
+This provider here is mainly used for self-managed software brokers, where additional Terraform resources might be required. 
 
 ## Getting started quickly
 ### Build local
